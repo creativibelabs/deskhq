@@ -1,0 +1,81 @@
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: deskhq_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: deskhq
+      POSTGRES_USER: deskhq_user
+      POSTGRES_PASSWORD: deskhq_secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - deskhq_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: deskhq_redis
+    restart: unless-stopped
+    command: redis-server --requirepass deskhq_redis_secret
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - deskhq_network
+
+  minio:
+    image: minio/minio:latest
+    container_name: deskhq_minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: deskhq_minio
+      MINIO_ROOT_PASSWORD: deskhq_minio_secret
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - deskhq_network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: deskhq_pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@deskhq.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - deskhq_network
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: deskhq_mailpit
+    restart: unless-stopped
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Web UI
+    networks:
+      - deskhq_network
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
+  pgadmin_data:
+
+networks:
+  deskhq_network:
+    driver: bridge

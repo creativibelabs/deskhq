@@ -1,0 +1,56 @@
+# ── Laravel ──────────────────────────────
+backend/.env
+backend/.env.backup
+backend/vendor/
+backend/node_modules/
+backend/storage/logs/*
+backend/storage/framework/cache/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+backend/storage/app/public/*
+backend/bootstrap/cache/*
+backend/.phpunit.result.cache
+backend/public/hot
+backend/public/storage
+
+# ── Next.js ──────────────────────────────
+frontend/.env.local
+frontend/.env.production
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.cache/
+
+# ── Node.js Services ─────────────────────
+node-services/.env
+node-services/node_modules/
+node-services/dist/
+
+# ── Python AI ────────────────────────────
+python-ai/.env
+python-ai/venv/
+python-ai/__pycache__/
+python-ai/*.pyc
+python-ai/*.pyo
+python-ai/.pytest_cache/
+python-ai/*.egg-info/
+python-ai/dist/
+python-ai/.mypy_cache/
+
+# ── Docker ───────────────────────────────
+docker/postgres/data/
+
+# ── General ──────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
+*.keys.txt
+.keys/
+.env
+*.pem
+*.key
+*.cert
+.idea/
+.vscode/settings.json
+*.suo
+*.user
