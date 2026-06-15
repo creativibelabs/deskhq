@@ -54,3 +54,6 @@ Thumbs.db
 .vscode/settings.json
 *.suo
 *.user
+
+# Claude MCP config (contains API keys)
+.claude/claude.json

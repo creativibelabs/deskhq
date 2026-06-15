@@ -98,7 +98,7 @@ export default function Header() {
             />
           </svg>
         </div>
-        <div className="profile shadow-[0px_4px_6px_0px_#00000005] bg-white rounded-[55px] py-1.25 px-5 flex items-center justify-center gap-2.5 cursor-pointer">
+        <div className="profile shadow-[0px_4px_6px_0px_#00000005] bg-white rounded-[55px] py-1.25 pl-1.25 pr-5 flex items-center justify-center gap-2.5 cursor-pointer">
           <div className="avatar w-9.5 h-9.5 rounded-full bg-[#3B7FF7] flex items-center justify-center">
             <Image
               src="/assets/common/avatar-placeholder.webp"

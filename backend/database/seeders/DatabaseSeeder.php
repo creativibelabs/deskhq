@@ -17,7 +17,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RolesAndPermissionsSeeder::class,
+            ProdRolesSeeder::class,
             ProdAdminSeeder::class,
+            SubscriptionPlansSeeder::class,
+            SettingsSeeder::class,
         ]);
     }
 }

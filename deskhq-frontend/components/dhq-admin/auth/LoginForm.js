@@ -6,6 +6,8 @@ import { useToast } from "@/components/common/Toast";
 import { commonRules, validateField, validateForm } from "@/utils/validation";
 import Loader from "@/components/common/Loader";
 import PasswordInput from "@/components/common/PasswordInput";
+import { authAPI } from "@/utils/api";
+import { isAuthenticated } from "@/utils/cookies";
 
 const inputBase =
   "border bg-[#F7FBFF] min-h-10.5 rounded-xl focus:outline-none focus:ring-1 px-3 autofill:shadow-[inset_0_0_0px_1000px_rgb(247,251,255)] text-[14px] font-medium placeholder:text-[#72727266] dark-blue-color transition-colors";
@@ -44,10 +46,19 @@ export default function DHQLoginForm() {
     if (Object.keys(errs).length > 0) return;
 
     setLoading(true);
+
     try {
-      await new Promise((res) => setTimeout(res, 2000));
+      await authAPI.login(
+        {
+          login: email,
+          password: password,
+        },
+        rememberMe,
+      );
+
       toast.success("Logged in successfully!");
-    } catch {
+      router.push("/dhq-admin/");
+    } catch (error) {
       toast.error("Invalid email or password.");
     } finally {
       setLoading(false);
